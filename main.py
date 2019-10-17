@@ -1,5 +1,6 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
+from kivy.core.window import Window
 from kivy.uix.button import Button
 from kivy.uix.floatlayout import FloatLayout
 
@@ -10,10 +11,10 @@ class SampleObject(Widget):
         self.num = num
         self.name = str("obj" + str(self.num))
 
-class PongGame(FloatLayout):
+class TileGame(FloatLayout):
     def __init__(self, **kwargs):
         # make sure we aren't overriding any important functionality
-        super(PongGame, self).__init__(**kwargs)
+        super(TileGame, self).__init__(**kwargs)
         self.game_objects = []
         self.build_objects()
         self.display_objects()
@@ -34,16 +35,14 @@ class PongGame(FloatLayout):
             print(object.loc)
 
     def display_objects(self):
-        for object in self.game_objects:
-            object.name = Button(text=str(object.num), pos=(object.pos), size_hint=(.2,.2))
-            self.add_widget(object.name)
+        for i, object in enumerate(self.game_objects):
+            self.game_objects[i].button = Button(text=str(object.num), pos=(object.pos), size_hint=(.2,.2), pos_hint={'x':(object.pos[1]/Window.width)})
+            self.add_widget(self.game_objects[i].button)
 
 
 class GameApp(App):
     def build(self):
-        return PongGame()
-
-
+        return TileGame()
 
 
 
