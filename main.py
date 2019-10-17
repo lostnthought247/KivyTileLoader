@@ -36,8 +36,11 @@ class TileGame(FloatLayout):
 
     def display_objects(self):
         for i, object in enumerate(self.game_objects):
-            self.game_objects[i].button = Button(text=str(object.num), pos=(object.pos), size_hint=(.2,.2), pos_hint={'x':(object.pos[1]/Window.width)})
-            self.add_widget(self.game_objects[i].button)
+            self.game_objects[i].button = Button(text=str(object.num), pos=(object.loc), size_hint=(.2,.2))
+            print(object.pos)
+            print(object.name)
+            print(object.num)
+            self.add_widget(self.game_objects[i].button, index=1)
 
 
 class GameApp(App):
